@@ -2,15 +2,15 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -60%);
+    transform: translate(-50%, -70%);
     display: grid;
     grid-template-columns: repeat(3, auto);
 }
 
 .grid-cell {
-    border: 2px solid #eee;
-    width: 180px;
-    height: 180px;
+    border: 3px solid #eee;
+    width: 160px;
+    height: 160px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -31,4 +31,12 @@
 
 .grid-cell:nth-last-of-type(-n + 3) {
     border-bottom: none;
+}
+
+.o>img {
+    width: 125px;
+}
+
+.x>img {
+    width: 105px;
 }
