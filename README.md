@@ -1,3 +1,3 @@
 # Žaidimo sąsajos kūrimas 
 
-## "kryžiukai-nuliukai"
+## kryžiukai-nuliukai
