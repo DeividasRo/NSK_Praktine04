@@ -1,3 +1,26 @@
+
+const playerX = { name: "PlayerX", score: 0 };
+const playerO = { name: "PlayerO", score: 0 };
+let drawScore = 0;
+
+if (sessionStorage.playerX_data) {
+    playerX.name = JSON.parse(sessionStorage.playerX_data).name;
+    playerX.score = JSON.parse(sessionStorage.playerX_data).score;
+}
+if (sessionStorage.playerO_data) {
+    playerO.name = JSON.parse(sessionStorage.playerO_data).name;
+    playerO.score = JSON.parse(sessionStorage.playerO_data).score;
+}
+if (sessionStorage.draw_score) {
+    drawScore = JSON.parse(sessionStorage.draw_score);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    updateScoreTexts();
+});
+
+console.log(playerX.score, drawScore, playerO.score);
+
 const game = {
     xTurn: true,
     oState: [],
@@ -33,24 +56,35 @@ document.addEventListener('click', event => {
             "images/X.svg" : "images/O.svg");
 
         game.xTurn = !game.xTurn;
-    }
 
-    if (!document.querySelectorAll('.grid-cell:not(.disabled)').length) {
-        document.querySelector('.game-over').classList.add('visible');
-        document.querySelector('.game-over-text').textContent = 'Draw!';
-    }
-
-    game.winningStates.forEach(winningState => {
-        const xWins = winningState.every(state => game.xState.includes(state));
-        const oWins = winningState.every(state => game.oState.includes(state));
-
-        if (xWins || oWins) {
-            document.querySelectorAll('.grid-cell').forEach(cell => cell.classList.add('disabled'));
+        if (!document.querySelectorAll('.grid-cell:not(.disabled)').length) {
             document.querySelector('.game-over').classList.add('visible');
-            document.querySelector('.game-over-text').textContent = xWins ?
-                'X wins!' : 'O wins!';
+            document.querySelector('.game-over-text').textContent = 'Draw!';
+            drawScore += 1;
+            sessionStorage.draw_score = drawScore;
         }
-    });
+
+        game.winningStates.forEach(winningState => {
+            const xWins = winningState.every(state => game.xState.includes(state));
+            const oWins = winningState.every(state => game.oState.includes(state));
+
+            if (xWins || oWins) {
+                document.querySelectorAll('.grid-cell').forEach(cell => cell.classList.add('disabled'));
+                document.querySelector('.game-over').classList.add('visible');
+                document.querySelector('.game-over-text').textContent = xWins ?
+                    'X wins!' : 'O wins!';
+
+                if (xWins) {
+                    playerX.score += 1;
+                    sessionStorage.playerX_data = JSON.stringify(playerX);
+                }
+                else {
+                    playerO.score += 1;
+                    sessionStorage.playerO_data = JSON.stringify(playerO);
+                }
+            }
+        });
+    }
 
 });
 
@@ -60,10 +94,19 @@ document.querySelector('.restart').addEventListener('click', () => {
         cell.classList.remove('disabled', 'x', 'o');
         cell.querySelector('img').removeAttribute("src");
     })
+    updateScoreTexts();
 
     game.xTurn = true;
     game.xState = [];
     game.oState = [];
 })
+
+
+function updateScoreTexts() {
+
+    document.getElementById("draw-info").querySelector('.player-score').textContent = drawScore;
+    document.getElementById("playerX-info").querySelector('.player-score').textContent = playerX.score;
+    document.getElementById("playerO-info").querySelector('.player-score').textContent = playerO.score;
+}
 
 

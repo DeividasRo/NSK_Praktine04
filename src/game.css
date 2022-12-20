@@ -71,3 +71,22 @@
 .visible {
     display: block;
 }
+
+
+#players-info {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 120px;
+    margin-top: 700px;
+}
+
+.player-name,
+.player-score {
+    font-size: 2.2em;
+}
+
+.player-score {
+    text-align: center;
+}
