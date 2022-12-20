@@ -14,36 +14,51 @@
 </head>
 
 <body>
-    <div id="game-grid">
-        <div class="grid-cell" data-value="0"><img></div>
-        <div class="grid-cell" data-value="1"><img></div>
-        <div class="grid-cell" data-value="2"><img></div>
-        <div class="grid-cell" data-value="3"><img></div>
-        <div class="grid-cell" data-value="4"><img></div>
-        <div class="grid-cell" data-value="5"><img></div>
-        <div class="grid-cell" data-value="6"><img></div>
-        <div class="grid-cell" data-value="7"><img></div>
-        <div class="grid-cell" data-value="8"><img></div>
+    <div id="game-setup-container">
+        <div id="game-setup">
+            <label for="playerX-name">Player X</label>
+            <input type="text" name="playerX-name" placeholder="Enter name here..." required maxlength=12 />
+            <label for="playerO-name">Player O</label>
+            <input type="text" name="playerO-name" placeholder="Enter name here..." required maxlength=12 />
+            <button type="submit" onClick="startGame()">START</button>
+        </div>
     </div>
-    <div id="players-info">
-        <div class="player-info" id="playerX-info">
-            <div class="player-name">Player1</div>
-            <div class="player-score">0</div>
+    <div id="game" class="hidden">
+        <div id="turn">playerName's turn</div>
+        <div id="game-grid">
+            <div class="grid-cell" data-value="0"><img></div>
+            <div class="grid-cell" data-value="1"><img></div>
+            <div class="grid-cell" data-value="2"><img></div>
+            <div class="grid-cell" data-value="3"><img></div>
+            <div class="grid-cell" data-value="4"><img></div>
+            <div class="grid-cell" data-value="5"><img></div>
+            <div class="grid-cell" data-value="6"><img></div>
+            <div class="grid-cell" data-value="7"><img></div>
+            <div class="grid-cell" data-value="8"><img></div>
         </div>
-        <div class="player-info" id="draw-info">
-            <div class="player-name">Draw</div>
-            <div class="player-score">0</div>
-        </div>
-        <div class="player-info" id="playerO-info">
-            <div class="player-info">
-                <div class="player-name">Player2</div>
+        <div id="players-info">
+            <div class="player-info" id="playerX-info">
+                <div class="player-name">Player1</div>
                 <div class="player-score">0</div>
             </div>
+            <div class="player-info" id="draw-info">
+                <div class="player-name">Draw</div>
+                <div class="player-score">0</div>
+            </div>
+            <div class="player-info" id="playerO-info">
+                <div class="player-info">
+                    <div class="player-name">Player2</div>
+                    <div class="player-score">0</div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="game-over">
-        <span class="game-over-text"></span>
-        <button class="restart">Restart</button>
+        <div id="reset-btn-div">
+            <input type="button" value="RESET" onClick="resetScores()" />
+        </div>
+        <div class="game-over">
+            <span class="game-over-text"></span>
+            <button class="restart">Restart</button>
+        </div>
     </div>
 </body>
 
