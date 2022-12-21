@@ -121,7 +121,7 @@
 .player-name,
 .player-score {
     font-size: 2.2em;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .player-score {
@@ -179,13 +179,17 @@
         width: 90px;
     }
 
+    .game-over-text {
+        font-size: 50px;
+    }
+
     #players-info {
         margin-top: 550px;
     }
 
     .player-name,
     .player-score {
-        font-size: 1.8em;
+        font-size: 1.6em;
     }
 
     #players-info>.player-info {
@@ -199,6 +203,10 @@
 }
 
 @media (max-width: 550px) {
+
+    .game-over-text {
+        font-size: 40px;
+    }
 
     .player-name,
     .player-score {

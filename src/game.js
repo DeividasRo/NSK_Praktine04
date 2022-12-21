@@ -47,14 +47,16 @@ const game = {
 };
 
 function startGame() {
-    playerX.name = document.getElementsByName("playerX-name")[0].value
+    playerX.name = document.getElementsByName("playerX-name")[0].value;
     playerO.name = document.getElementsByName("playerO-name")[0].value;
-    sessionStorage.playerX_data = JSON.stringify(playerX);
-    sessionStorage.playerO_data = JSON.stringify(playerO);
-    document.getElementById("game").classList.remove('hidden');
-    document.getElementById("game-setup-container").classList.add('hidden');
-    updateTurnText(playerX);
-    updateNameTexts();
+    if (playerX.name.length > 2 && playerO.name.length > 2) {
+        sessionStorage.playerX_data = JSON.stringify(playerX);
+        sessionStorage.playerO_data = JSON.stringify(playerO);
+        document.getElementById("game").classList.remove('hidden');
+        document.getElementById("game-setup-container").classList.add('hidden');
+        updateTurnText(playerX);
+        updateNameTexts();
+    }
 }
 
 document.addEventListener('click', event => {
