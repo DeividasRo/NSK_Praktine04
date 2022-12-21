@@ -5,7 +5,6 @@ let drawScore = 0;
 // check if game is not setup
 if (!sessionStorage.playerX_data && !sessionStorage.playerO_data) {
     document.getElementById("game-setup-container").classList.remove('hidden');
-    console.log('test');
 }
 else {
     document.getElementById("game").classList.remove('hidden');
@@ -84,9 +83,10 @@ document.addEventListener('click', event => {
         game.winningStates.forEach(winningState => {
             const xWins = winningState.every(state => game.xState.includes(state));
             const oWins = winningState.every(state => game.oState.includes(state));
-            console.log("winningstates");
+
             if (xWins || oWins) {
                 document.querySelectorAll('.grid-cell').forEach(cell => cell.classList.add('disabled'));
+                document.getElementById("reset-btn-div").querySelector('input').classList.add('disabled');
                 document.querySelector('.game-over').classList.add('visible');
                 document.querySelector('.game-over-text').textContent = xWins ?
                     playerX.name + ' wins!' : playerO.name + ' wins!';
@@ -99,35 +99,41 @@ document.addEventListener('click', event => {
                     playerO.score += 1;
                     sessionStorage.playerO_data = JSON.stringify(playerO);
                 }
+
                 game.finished = true;
+                disableButton("reset-btn");
+                setTimeout(function () { startNextRound() }, 2500);
             }
         });
 
         if (!document.querySelectorAll('.grid-cell:not(.disabled)').length && !game.finished) {
             document.querySelector('.game-over').classList.add('visible');
             document.querySelector('.game-over-text').textContent = 'Draw!';
+
             drawScore += 1;
             sessionStorage.draw_score = drawScore;
+
             game.finished = true;
-            console.log("draw");
+            disableButton("reset-btn");
+            setTimeout(function () { startNextRound() }, 2500);
         }
     }
 
 });
 
-document.querySelector('.restart').addEventListener('click', () => {
+function startNextRound() {
     document.querySelector('.game-over').classList.remove('visible');
     document.querySelectorAll('.grid-cell').forEach(cell => {
         cell.classList.remove('disabled', 'x', 'o');
         cell.querySelector('img').removeAttribute("src");
     })
-
+    enableButton("reset-btn");
     updateScoreTexts();
 
     game.finished = false;
     game.xState = [];
     game.oState = [];
-});
+}
 
 
 function resetScores() {
@@ -138,6 +144,16 @@ function resetScores() {
     sessionStorage.playerO_data = JSON.stringify(playerO);
     sessionStorage.playerX_data = JSON.stringify(playerX);
     updateScoreTexts();
+}
+
+function disableButton(buttonId) {
+    document.getElementById(buttonId).classList.add('disabled');
+    document.getElementById(buttonId).setAttribute("disabled", "");
+}
+
+function enableButton(buttonId) {
+    document.getElementById(buttonId).classList.remove('disabled');
+    document.getElementById(buttonId).removeAttribute("disabled");
 }
 
 
