@@ -1,11 +1,13 @@
-
 const playerX = { name: "PlayerX", score: 0 };
 const playerO = { name: "PlayerO", score: 0 };
 let drawScore = 0;
 
 // check if game is not setup
-if (sessionStorage.playerX_data && sessionStorage.playerO_data) {
-    document.getElementById("game-setup-container").classList.add('hidden');
+if (!sessionStorage.playerX_data && !sessionStorage.playerO_data) {
+    document.getElementById("game-setup-container").classList.remove('hidden');
+    console.log('test');
+}
+else {
     document.getElementById("game").classList.remove('hidden');
     if (sessionStorage.playerX_data) {
         playerX.name = JSON.parse(sessionStorage.playerX_data).name;
@@ -50,8 +52,8 @@ function startGame() {
     playerO.name = document.getElementsByName("playerO-name")[0].value;
     sessionStorage.playerX_data = JSON.stringify(playerX);
     sessionStorage.playerO_data = JSON.stringify(playerO);
-    document.getElementById("game-setup-container").classList.add('hidden');
     document.getElementById("game").classList.remove('hidden');
+    document.getElementById("game-setup-container").classList.add('hidden');
     updateTurnText(playerX);
     updateNameTexts();
 }
